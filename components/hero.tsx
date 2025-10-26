@@ -15,16 +15,16 @@ export function Hero() {
 
   return (
     <section id="hero" className="relative overflow-hidden border-b border-border/40 bg-background">
-      <div className="absolute inset-0 bg-linear-to-b from-primary/5 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-b from-primary/5 via-transparent to-transparent pointer-events-none" />
       
       {/* Floating Graphics */}
-      <div className="absolute top-20 left-10 w-20 h-20 bg-primary/10 rounded-full blur-xl animate-pulse" />
-      <div className="absolute top-40 right-20 w-16 h-16 bg-accent/10 rounded-full blur-lg animate-pulse delay-1000" />
-      <div className="absolute bottom-40 left-1/4 w-12 h-12 bg-primary/20 rounded-full blur-md animate-pulse delay-2000" />
-      <div className="absolute top-60 right-1/3 w-8 h-8 bg-accent/20 rounded-full blur-sm animate-pulse delay-500" />
+      <div className="absolute top-20 left-10 w-20 h-20 bg-primary/10 rounded-full blur-xl animate-pulse pointer-events-none" />
+      <div className="absolute top-40 right-20 w-16 h-16 bg-accent/10 rounded-full blur-lg animate-pulse delay-1000 pointer-events-none" />
+      <div className="absolute bottom-40 left-1/4 w-12 h-12 bg-primary/20 rounded-full blur-md animate-pulse delay-2000 pointer-events-none" />
+      <div className="absolute top-60 right-1/3 w-8 h-8 bg-accent/20 rounded-full blur-sm animate-pulse delay-500 pointer-events-none" />
       
       {/* Grid Pattern */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+      <div className="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none" />
 
       <div className="container mx-auto px-4 py-24 md:py-32 lg:py-40">
         <div className="mx-auto max-w-4xl text-center">
