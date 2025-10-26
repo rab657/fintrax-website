@@ -1,11 +1,11 @@
 export function ClientLogos() {
-  const logos = ["Client 1", "Client 2", "Client 3", "Client 4", "Client 5", "Client 6"]
+  const logos = ["Mitchell & Associates", "Thompson Legal", "Richardson & Co", "UK Property Law", "Conveyancing Partners", "Legal Solutions"]
 
   return (
     <section className="border-b border-border/40 bg-muted/30 py-12">
-      <div className="container">
+      <div className="container mx-auto px-4">
         <p className="mb-8 text-center text-sm font-medium text-muted-foreground">
-          Trusted by regulated financial institutions globally
+          Trusted by leading UK law firms and conveyancing solicitors
         </p>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center justify-items-center">

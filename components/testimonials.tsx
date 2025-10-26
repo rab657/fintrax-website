@@ -5,31 +5,31 @@ export function Testimonials() {
   const testimonials = [
     {
       quote:
-        "Today, Flagright's real-time transaction monitoring serves as the backbone of our compliance strategy. Week by week, we have expanded the suite of features we use, especially on the AI front. We've seen returns on investment from day one.",
-      author: "Angela Cavendish",
-      role: "Fraud and Financial Crime Manager",
+        "Fintrax AI has revolutionized our proof of wealth process. What used to take us days of back-and-forth with clients now takes hours. The AI automatically identifies missing documents and reaches out to clients directly.",
+      author: "Sarah Mitchell",
+      role: "Senior Partner, Mitchell & Associates",
     },
     {
       quote:
-        "There's nothing that builds my confidence more than seeing our team focus on real investigations. With Flagright in the picture, these guys move at rocket speed, and that's how we've stayed a step ahead.",
-      author: "Saqib Mirza",
-      role: "CEO & Co-founder",
+        "The accuracy of Fintrax AI's document matching is incredible. It catches details that would take our team hours to spot manually. We've reduced our proof of wealth processing time by 90%.",
+      author: "James Thompson",
+      role: "Conveyancing Solicitor, Thompson Legal",
     },
     {
       quote:
-        "From transaction monitoring to quality assurance, we have trusted AI forensics to revolutionize the way we approach compliance today.",
-      author: "Dustin Eaton",
-      role: "Head of Risk and Compliance",
+        "Our clients love the streamlined process. Instead of multiple rounds of document requests, Fintrax AI gets everything right the first time. It's transformed how we handle UK property transactions.",
+      author: "Emma Richardson",
+      role: "Property Law Specialist, Richardson & Co",
     },
   ]
 
   return (
-    <section className="border-b border-border/40 bg-muted/30 py-24 md:py-32">
-      <div className="container">
+    <section id="testimonials" className="border-b border-border/40 bg-muted/30 py-24 md:py-32">
+      <div className="container mx-auto px-4">
         <div className="mx-auto max-w-3xl text-center mb-16">
           <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-primary">Client Success Stories</p>
           <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl text-balance">
-            The first choice of fincrime fighters
+            Trusted by leading UK law firms
           </h2>
         </div>
 

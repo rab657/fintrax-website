@@ -5,18 +5,18 @@ export function Footer() {
     {
       title: "Product",
       links: [
-        { label: "Transaction Monitoring", href: "#" },
-        { label: "Case Management", href: "#" },
-        { label: "Watchlist Screening", href: "#" },
-        { label: "Risk Scoring", href: "#" },
-        { label: "AI Forensics", href: "#" },
+        { label: "Document Analysis", href: "#" },
+        { label: "Automated Verification", href: "#" },
+        { label: "Customer Communication", href: "#" },
+        { label: "Compliance Reporting", href: "#" },
+        { label: "API Integration", href: "#" },
       ],
     },
     {
       title: "Company",
       links: [
         { label: "About", href: "#" },
-        { label: "Clients", href: "#" },
+        { label: "Law Firms", href: "#" },
         { label: "Careers", href: "#" },
         { label: "Contact", href: "#" },
       ],
@@ -24,10 +24,10 @@ export function Footer() {
     {
       title: "Resources",
       links: [
-        { label: "Blog", href: "#" },
         { label: "Documentation", href: "#" },
         { label: "Case Studies", href: "#" },
-        { label: "Events", href: "#" },
+        { label: "Webinars", href: "#" },
+        { label: "Support", href: "#" },
       ],
     },
     {
@@ -35,24 +35,24 @@ export function Footer() {
       links: [
         { label: "Privacy Policy", href: "#" },
         { label: "Terms of Service", href: "#" },
-        { label: "Security", href: "#" },
+        { label: "GDPR Compliance", href: "#" },
       ],
     },
   ]
 
   return (
     <footer className="border-t border-border/40 bg-muted/30">
-      <div className="container py-12 md:py-16">
+      <div className="container mx-auto px-4 py-12 md:py-16">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-5">
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
               <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary">
                 <span className="text-lg font-bold text-primary-foreground">F</span>
               </div>
-              <span className="text-xl font-bold text-foreground">Flagright</span>
+              <span className="text-xl font-bold text-foreground">Fintrax AI</span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              The modern standard for financial crime compliance
+              The fastest way to perform proof of wealth checks for UK property transactions
             </p>
           </div>
 
@@ -76,7 +76,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 border-t border-border/40 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground">© 2025 Flagright. All rights reserved.</p>
+          <p className="text-sm text-muted-foreground">© 2025 Fintrax AI. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <Link href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Twitter
