@@ -47,12 +47,12 @@ export function Hero() {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
             <WaitlistDialog>
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2">
+              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2" aria-label="Join the Fintrax AI waitlist">
                 Join Waitlist
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Button>
             </WaitlistDialog>
-            <Button size="lg" variant="outline" onClick={handlePlayClick}>
+            <Button size="lg" variant="outline" onClick={handlePlayClick} aria-label="Watch Fintrax AI product demo video">
               Watch Video
             </Button>
           </div>
@@ -103,7 +103,11 @@ export function Hero() {
               </video>
             ) : (
               <>
-                <img src="/financial-compliance-dashboard-interface.jpg" alt="Product demo video" className="w-full h-full object-cover" />
+                <img 
+                  src="/financial-compliance-dashboard-interface.jpg" 
+                  alt="Fintrax AI Dashboard - Automated proof of wealth compliance interface for UK property transactions" 
+                  className="w-full h-full object-cover"
+                />
 
                 <div className="absolute inset-0 bg-linear-to-t from-background/80 via-background/20 to-transparent" />
 
@@ -112,8 +116,9 @@ export function Hero() {
                     size="lg"
                     className="h-20 w-20 rounded-full bg-primary hover:bg-primary/90 shadow-xl hover:scale-110 transition-transform"
                     onClick={handlePlayClick}
+                    aria-label="Play product demo video"
                   >
-                    <Play className="h-8 w-8 text-primary-foreground ml-1" fill="currentColor" />
+                    <Play className="h-8 w-8 text-primary-foreground ml-1" fill="currentColor" aria-hidden="true" />
                   </Button>
                 </div>
               </>
