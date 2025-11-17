@@ -13,11 +13,57 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Sparkles, CheckCircle } from "lucide-react"
 
 interface WaitlistDialogProps {
   children: React.ReactNode
+}
+
+const STORAGE_KEY = 'fintrax_waitlist_submissions'
+
+const validateWorkEmail = (email: string): boolean => {
+  if (!email) return false
+  const personalEmailDomains = [
+    'gmail.com',
+    'yahoo.com',
+    'hotmail.com',
+    'outlook.com',
+    'icloud.com',
+    'aol.com',
+    'mail.com',
+    'protonmail.com',
+    'yandex.com',
+    'zoho.com'
+  ]
+  const domain = email.split('@')[1]?.toLowerCase()
+  return domain ? !personalEmailDomains.includes(domain) : false
+}
+
+// Check if email has already been submitted
+const checkIfAlreadySubmitted = (email: string): boolean => {
+  if (typeof window === 'undefined') return false
+  try {
+    const submittedEmails = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
+    return submittedEmails.includes(email.toLowerCase().trim())
+  } catch {
+    return false
+  }
+}
+
+// Save email to localStorage after successful submission
+const saveSubmission = (email: string) => {
+  if (typeof window === 'undefined') return
+  try {
+    const submittedEmails = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
+    const emailLower = email.toLowerCase().trim()
+    if (!submittedEmails.includes(emailLower)) {
+      submittedEmails.push(emailLower)
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(submittedEmails))
+    }
+  } catch (error) {
+    console.error('Error saving to localStorage:', error)
+  }
 }
 
 export function WaitlistDialog({ children }: WaitlistDialogProps) {
@@ -32,23 +78,16 @@ export function WaitlistDialog({ children }: WaitlistDialogProps) {
     company_name: "",
   })
 
-  const validateWorkEmail = (email: string): boolean => {
-    if (!email) return false
-    const personalEmailDomains = [
-      'gmail.com',
-      'yahoo.com',
-      'hotmail.com',
-      'outlook.com',
-      'icloud.com',
-      'aol.com',
-      'mail.com',
-      'protonmail.com',
-      'yandex.com',
-      'zoho.com'
-    ]
-    const domain = email.split('@')[1]?.toLowerCase()
-    return domain ? !personalEmailDomains.includes(domain) : false
-  }
+  // Check on email change
+  useEffect(() => {
+    if (formData.email && validateWorkEmail(formData.email)) {
+      if (checkIfAlreadySubmitted(formData.email)) {
+        setEmailError('This email has already been registered. You\'re already on our waitlist!')
+      } else {
+        setEmailError("")
+      }
+    }
+  }, [formData.email])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -59,25 +98,49 @@ export function WaitlistDialog({ children }: WaitlistDialogProps) {
       return
     }
 
+    // Check if already submitted
+    if (checkIfAlreadySubmitted(formData.email)) {
+      setEmailError('This email has already been registered. You\'re already on our waitlist!')
+      return
+    }
+
     setEmailError("")
     setIsSubmitting(true)
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    try {
+      // Call API to submit form data
+      const response = await fetch('/api/waitlist-form-submission', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
 
-    // Handle form submission here
-    console.log("Form submitted:", formData)
+      const data = await response.json()
 
-    setIsSubmitting(false)
-    setIsSubmitted(true)
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit form')
+      }
 
-    // Reset form after 2 seconds
-    setTimeout(() => {
-      setIsSubmitted(false)
-      setOpen(false)
-      setFormData({ name: "", email: "", phone: "", company_name: "" })
-      setEmailError("")
-    }, 2000)
+      // Save to localStorage to prevent duplicate submissions
+      saveSubmission(formData.email)
+
+      setIsSubmitting(false)
+      setIsSubmitted(true)
+
+      // Reset form after 3 seconds (increased for better UX)
+      setTimeout(() => {
+        setIsSubmitted(false)
+        setOpen(false)
+        setFormData({ name: "", email: "", phone: "", company_name: "" })
+        setEmailError("")
+      }, 3000)
+    } catch (error) {
+      console.error('Error submitting form:', error)
+      setIsSubmitting(false)
+      setEmailError('Failed to submit. Please try again.')
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -208,15 +271,23 @@ export function WaitlistDialog({ children }: WaitlistDialogProps) {
         ) : (
           <div className="p-12 text-center">
             <div className="mb-6 flex justify-center">
-              <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center">
-                <CheckCircle className="h-10 w-10 text-green-600" />
+              <div className="w-20 h-20 rounded-full bg-green-100 dark:bg-green-900/20 flex items-center justify-center animate-in zoom-in duration-300">
+                <CheckCircle className="h-10 w-10 text-green-600 dark:text-green-500" />
               </div>
             </div>
-            <DialogTitle className="text-2xl font-bold text-foreground mb-2">
-              You're on the list!
+            <DialogTitle className="text-2xl font-bold text-foreground mb-3">
+              You've Joined the Waitlist! 🎉
             </DialogTitle>
-            <DialogDescription className="text-base mt-2">
-              Thanks for joining! We'll be in touch soon with early access details.
+            <DialogDescription className="text-base mt-2 space-y-2">
+              <p className="font-medium text-foreground">
+                Thank you for joining our waitlist!
+              </p>
+              <p className="text-muted-foreground">
+                We're excited to have you on board. You'll be among the first to experience our proof of wealth automation platform.
+              </p>
+              <p className="text-sm text-muted-foreground mt-4">
+                We'll send you early access details and exclusive updates soon.
+              </p>
             </DialogDescription>
           </div>
         )}
