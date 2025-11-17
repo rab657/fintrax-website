@@ -1,6 +1,3 @@
-import { Play } from "lucide-react"
-import { Button } from "@/components/ui/button"
-
 export function ProductVideo() {
   return (
     <section className="relative overflow-hidden border-b border-border/40 py-24 md:py-32">
@@ -18,22 +15,17 @@ export function ProductVideo() {
 
         <div className="mx-auto max-w-5xl">
           <div className="relative aspect-video rounded-2xl overflow-hidden border-2 border-border/50 bg-card shadow-2xl">
-            <img src="/financial-compliance-dashboard-interface.jpg" alt="Product demo video" className="w-full h-full object-cover" />
-
-            <div className="absolute inset-0 bg-linear-to-t from-background/80 via-background/20 to-transparent" />
-
-            <div className="absolute inset-0 flex items-center justify-center">
-              <Button
-                size="lg"
-                className="h-20 w-20 rounded-full bg-primary hover:bg-primary/90 shadow-xl hover:scale-110 transition-transform"
-              >
-                <Play className="h-8 w-8 text-primary-foreground ml-1" fill="currentColor" />
-              </Button>
-            </div>
+            <video
+              src="https://jj9bwwzxehdxxzjp.public.blob.vercel-storage.com/fintrax_ai_demo.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover"
+            />
 
             <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between text-sm text-foreground">
               <span className="font-medium">Product Demo</span>
-              <span className="text-muted-foreground">3:45</span>
             </div>
           </div>
         </div>

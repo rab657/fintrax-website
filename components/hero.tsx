@@ -2,16 +2,10 @@
 
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Award, Play, Sparkles, Zap, Shield, CheckCircle, FileText, Users, BarChart3 } from "lucide-react"
-import { useState } from "react"
+import { ArrowRight, Award, Sparkles, Zap, Shield, CheckCircle, FileText, Users, BarChart3 } from "lucide-react"
 import { WaitlistDialog } from "./waitlist-dialog"
 
 export function Hero() {
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false)
-
-  const handlePlayClick = () => {
-    setIsVideoPlaying(true)
-  }
 
   return (
     <section id="hero" className="relative overflow-hidden border-b border-border/40 bg-background">
@@ -52,7 +46,7 @@ export function Hero() {
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Button>
             </WaitlistDialog>
-            <Button size="lg" variant="outline" onClick={handlePlayClick} aria-label="Watch Fintrax AI product demo video">
+            <Button size="lg" variant="outline" onClick={() => document.querySelector('video')?.scrollIntoView({ behavior: 'smooth' })} aria-label="Scroll to product demo video">
               Watch Video
             </Button>
           </div>
@@ -92,41 +86,19 @@ export function Hero() {
         </div>
         <div className="mx-auto max-w-5xl mt-10">
           <div className="relative aspect-video rounded-2xl overflow-hidden border-2 border-border/50 bg-card shadow-2xl">
-            {isVideoPlaying ? (
-              <video
-                className="w-full h-full object-cover"
-                controls
-                autoPlay
-                src="/demo-video.mp4"
-              >
-                Your browser does not support the video tag.
-              </video>
-            ) : (
-              <>
-                <img 
-                  src="/financial-compliance-dashboard-interface.jpg" 
-                  alt="Fintrax AI Dashboard - Automated proof of wealth compliance interface for UK property transactions" 
-                  className="w-full h-full object-cover"
-                />
-
-                <div className="absolute inset-0 bg-linear-to-t from-background/80 via-background/20 to-transparent" />
-
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Button
-                    size="lg"
-                    className="h-20 w-20 rounded-full bg-primary hover:bg-primary/90 shadow-xl hover:scale-110 transition-transform"
-                    onClick={handlePlayClick}
-                    aria-label="Play product demo video"
-                  >
-                    <Play className="h-8 w-8 text-primary-foreground ml-1" fill="currentColor" aria-hidden="true" />
-                  </Button>
-                </div>
-              </>
-            )}
+            <video
+              src="https://jj9bwwzxehdxxzjp.public.blob.vercel-storage.com/fintrax_ai_demo.mp4"
+              className="w-full h-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+            >
+              Your browser does not support the video tag.
+            </video>
 
             <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between text-sm text-foreground">
               <span className="font-medium">Product Demo</span>
-              <span className="text-muted-foreground">3:45</span>
             </div>
           </div>
         </div>

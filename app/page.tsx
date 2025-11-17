@@ -1,6 +1,5 @@
 import { Header } from "@/components/header"
 import { Hero } from "@/components/hero"
-import { ProductVideo } from "@/components/product-video"
 import { ClientLogos } from "@/components/client-logos"
 import { Features } from "@/components/features"
 import { Testimonials } from "@/components/testimonials"
@@ -23,7 +22,6 @@ export default function Home() {
       <Header />
       <main className="">
         <Hero />
-        {/* <ProductVideo /> */}
         <ClientLogos />
         <Features />
         <Testimonials />

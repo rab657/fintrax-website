@@ -24,14 +24,42 @@ export function WaitlistDialog({ children }: WaitlistDialogProps) {
   const [open, setOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [emailError, setEmailError] = useState("")
   const [formData, setFormData] = useState({
     name: "",
-    company: "",
+    email: "",
     phone: "",
+    company_name: "",
   })
+
+  const validateWorkEmail = (email: string): boolean => {
+    if (!email) return false
+    const personalEmailDomains = [
+      'gmail.com',
+      'yahoo.com',
+      'hotmail.com',
+      'outlook.com',
+      'icloud.com',
+      'aol.com',
+      'mail.com',
+      'protonmail.com',
+      'yandex.com',
+      'zoho.com'
+    ]
+    const domain = email.split('@')[1]?.toLowerCase()
+    return domain ? !personalEmailDomains.includes(domain) : false
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Validate work email
+    if (!validateWorkEmail(formData.email)) {
+      setEmailError('Please use your work email address. Personal email addresses are not accepted.')
+      return
+    }
+
+    setEmailError("")
     setIsSubmitting(true)
 
     // Simulate API call
@@ -47,15 +75,22 @@ export function WaitlistDialog({ children }: WaitlistDialogProps) {
     setTimeout(() => {
       setIsSubmitted(false)
       setOpen(false)
-      setFormData({ name: "", company: "", phone: "" })
+      setFormData({ name: "", email: "", phone: "", company_name: "" })
+      setEmailError("")
     }, 2000)
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     })
+    
+    // Clear email error when user starts typing
+    if (name === "email" && emailError) {
+      setEmailError("")
+    }
   }
 
   return (
@@ -101,18 +136,26 @@ export function WaitlistDialog({ children }: WaitlistDialogProps) {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="company" className="text-sm font-medium">
-                    Company Name *
+                  <Label htmlFor="email" className="text-sm font-medium">
+                    Work Email Address *
                   </Label>
                   <Input
-                    id="company"
-                    name="company"
-                    placeholder="Acme Solicitors"
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="john.doe@company.com"
                     required
-                    value={formData.company}
+                    value={formData.email}
                     onChange={handleChange}
-                    className="h-11"
+                    className={`h-11 ${emailError ? "border-destructive" : ""}`}
                   />
+                  {emailError ? (
+                    <p className="text-xs text-destructive">{emailError}</p>
+                  ) : (
+                    <p className="text-xs text-muted-foreground">
+                      Please use your work email address. Personal emails are not accepted.
+                    </p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -126,6 +169,21 @@ export function WaitlistDialog({ children }: WaitlistDialogProps) {
                     placeholder="+44 20 7946 0958"
                     required
                     value={formData.phone}
+                    onChange={handleChange}
+                    className="h-11"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="company_name" className="text-sm font-medium">
+                    Company Name *
+                  </Label>
+                  <Input
+                    id="company_name"
+                    name="company_name"
+                    placeholder="Acme Solicitors"
+                    required
+                    value={formData.company_name}
                     onChange={handleChange}
                     className="h-11"
                   />
